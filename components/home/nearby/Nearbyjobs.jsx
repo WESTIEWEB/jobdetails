@@ -1,31 +1,20 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import { useState } from "react";
 import { useRouter } from "expo-router";
 
 import styles from "./nearbyjob.style";
 import { COLORS, SIZES } from "../../../constants";
-import useFetchHook from "../../../hook/useFetchHook"
+import useFetchHook from "../../../hook/useFetchHook";
 import NearByJobCard from "../../common/cards/nearby/NearByJobCard";
 
-const Nearbyjobs = () => { 
-  const [selectedJob, setSelectedJob] = useState(); 
+const Nearbyjobs = () => {
   const router = useRouter();
-  
-  const { error, loading, refetch, data } = useFetchHook('search', {
-    query: 'React Developer',
+
+  const { error, loading, refetch, data } = useFetchHook("search", {
+    query: "React Developer",
     num_pages: 1,
     page: 1,
-  })
-
-  const handlePress = (item) => {
-    setSelectedJob(item?.job_id);
-    router.push(`job-details/${item?.job_id}`);
-  }
+  });
 
   return (
     <View style={styles.container}>
@@ -42,8 +31,13 @@ const Nearbyjobs = () => {
         ) : error ? (
           <Text> Something went wrong.</Text>
         ) : (
-          data?.map((item) => (
-            <NearByJobCard />
+          data?.map((job) => (
+            <NearByJobCard
+              stye={{ columnGap: SIZES.medium }}
+              job={job}
+              handleNavigate={() => router.push(`job-details/${job.job_id}`)}
+              key={`nearby-job-${job.job_id}`}
+            />
           ))
         )}
       </View>

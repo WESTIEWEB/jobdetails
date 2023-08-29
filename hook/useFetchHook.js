@@ -25,7 +25,8 @@ const useFetchHook = (endpoint, query) => {
 
         try {
             const response = await axios.request(options);
-            setData(response.data.data);
+            if(response && response.data.data && response.data.data.length > 0)
+                setData(response.data.data);
             setLoading(false);
         } catch (error) {
             setError(error);

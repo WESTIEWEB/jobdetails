@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-const Specific = () => {
+const JobTabs = () => {
   return (
     <View>
-      <Text>Specific</Text>
+      <Text>JobTabs</Text>
     </View>
   )
 }
 
-export default Specific
+export default JobTabs
